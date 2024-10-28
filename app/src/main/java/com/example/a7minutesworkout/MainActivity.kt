@@ -3,8 +3,6 @@ package com.example.a7minutesworkout
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.a7minutesworkout.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,11 +16,11 @@ class MainActivity : AppCompatActivity() {
 
 
         //val flStartButton : FrameLayout = findViewById(R.id.flStart)
-        binding?.flStart?.setOnClickListener{
+        binding?.flStart?.setOnClickListener {
             //Toast.makeText(this, "Now we will start the exercise.", Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this, ExerciseActivity::class.java)
-        startActivity(intent)
+            val intent = Intent(this, ExerciseActivity::class.java)
+            startActivity(intent)
         }
 
     }
