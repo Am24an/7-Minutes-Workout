@@ -16,8 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:forceDarkAllowed="false"
         android:theme="@style/Theme._7MinutesWorkout"
         tools:targetApi="31">
+
         <activity
             android:name=".BMIActivity"
             android:exported="false" />

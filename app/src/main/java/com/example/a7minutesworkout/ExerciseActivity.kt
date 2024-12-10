@@ -64,12 +64,39 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        pauseTimers() // Pause timers function when back is pressed.
         customDialogForBackButton()
         //super.onBackPressed()
     }
 
+    // Function to pause timers when back button is pressed.
+    private val handler = Handler(Looper.getMainLooper())
+
+    private fun pauseTimers() {
+        handler.post {
+            //Execute on the main thread.
+            restTimer?.cancel()
+            exerciseTimer?.cancel()
+        }
+    }
+
+    // Function to resume timers whether it is a Rest view or Exercise view.
+    private fun resumeTimers() {
+        handler.post {
+            //Execute on the main thread.
+
+            if (restTimer != null && binding?.flRestView?.visibility == View.VISIBLE) {
+                setRestProgressBar() // resume the rest timer.
+            } else if (exerciseTimer != null && binding?.flExerciseView?.visibility == View.VISIBLE) {
+                setExerciseProgressBar() // Resume exercise timer
+            }
+        }
+    }
+
+
     // this is the fun for custom dialog message when pressed during the workout.
-    private fun customDialogForBackButton(){
+    private fun customDialogForBackButton() {
+        pauseTimers() // pause timer when dialog is shown
         val customDialog = Dialog(this)
         val dialogBinding = DialogCustomBackNotificationBinding.inflate(layoutInflater)
         customDialog.setContentView(dialogBinding.root)
@@ -81,11 +108,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         dialogBinding.btnNo.setOnClickListener {
             customDialog.dismiss()
+            resumeTimers() // Resume timers when 'No' is clicked.
         }
         customDialog.show()
     }
 
-    private fun setupExerciseStatusRecyclerView(){
+    private fun setupExerciseStatusRecyclerView() {
         binding?.rvExerciseStatus?.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -95,14 +123,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setupRestView() {
 
-        try{
+        try {
             val soundURI = Uri.parse(
-                "android.resource://com.example.a7minutesworkout/" + R.raw.btn_sound)
+                "android.resource://com.example.a7minutesworkout/" + R.raw.btn_sound
+            )
 
-            player = MediaPlayer.create(applicationContext,soundURI)
+            player = MediaPlayer.create(applicationContext, soundURI)
             player?.isLooping = false
             player?.start()
-        }catch(e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -122,7 +151,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             restProgress = 0
         }
 
-        binding?.tvUpcomingExerciseName?.text = exerciseList!![currentExercisePosition +1].getName()
+        binding?.tvUpcomingExerciseName?.text =
+            exerciseList!![currentExercisePosition + 1].getName()
 
         //Announce rest period and upcoming Exercise name
         val restTimeInSeconds = 10
@@ -140,9 +170,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Generate a random index
         val randomIndex = Random.nextInt(ttsVariations.size)
 
-        val textToSpeak = if(currentExercisePosition == -1){
+        val textToSpeak = if (currentExercisePosition == -1) {
             "Get ready for ${exerciseList!![currentExercisePosition + 1].getName()}" // for the first exercise.
-        }else{
+        } else {
             ttsVariations[randomIndex] //random messages for other exercise.
         }
 
@@ -152,7 +182,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         // Introduce a slight delay Before speaking
         Handler(Looper.getMainLooper()).postDelayed(
-            { speakOut(textToSpeak) }, 1000)
+            { speakOut(textToSpeak) }, 1000
+        )
 
         setRestProgressBar()
     }
@@ -185,7 +216,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar() {
         binding?.progressBar?.progress = restProgress
 
-        restTimer = object : CountDownTimer(restTimerDuration*10000, 1000) {
+        restTimer = object : CountDownTimer(restTimerDuration * 10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding?.progressBar?.progress = 10 - restProgress
@@ -207,7 +238,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setExerciseProgressBar() {
         binding?.progressBarExercise?.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(exerciseTimerDuration*30000, 1000) {
+        exerciseTimer = object : CountDownTimer(exerciseTimerDuration * 30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding?.progressBarExercise?.progress = 30 - exerciseProgress
@@ -245,12 +276,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         //Shutting down the Text to speech feature when activity is destroyed.
         //START
-        if(tts != null){
+        if (tts != null) {
             tts!!.stop()
             tts!!.shutdown()
         }
 
-        if(player != null){
+        if (player != null) {
             player!!.stop()
         }
 
@@ -258,18 +289,19 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onInit(status: Int) {
-    if(status == TextToSpeech.SUCCESS){
-        // Set US Eng as lang for tts
-        val result =tts?.setLanguage(Locale.US)
+        if (status == TextToSpeech.SUCCESS) {
+            // Set US Eng as lang for tts
+            val result = tts?.setLanguage(Locale.US)
 
-        if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
-            Log.e("TTS", "The language specified is not supported!")
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The language specified is not supported!")
+            }
+        } else {
+            Log.e("TTS", "Initialization Failed!")
         }
-    }else{
-        Log.e("TTS", "Initialization Failed!")
     }
-    }
-    private fun speakOut(text: String){
-        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH,null, "")
+
+    private fun speakOut(text: String) {
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

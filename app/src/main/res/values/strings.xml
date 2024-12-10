@@ -4,4 +4,13 @@
     <string name="msg">This will stop your workout. You\'ve come this far, are you sure you want to want to quit?</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
+    <string name="height_in_cm">HEIGHT (in cm)</string>
+    <string name="feet">Feet</string>
+    <string name="inch">Inch</string>
+    <string name="weight_in_kg">WEIGHT (in kg)</string>
+    <string name="weight_in_pounds">WEIGHT (in Pounds)</string>
+    <string name="us_units">US UNITS</string>
+    <string name="metric_units">METRIC UNITS</string>
+    <string name="your_bmi">your BMI</string>
+    <string name="calculate">CALCULATE</string>
 </resources>
