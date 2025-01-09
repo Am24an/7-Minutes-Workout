@@ -12,6 +12,7 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minutesworkout.databinding.ActivityExerciseBinding
@@ -41,6 +42,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
+
+        //Keep the screen awake during the workout.
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding?.root)
@@ -86,9 +90,45 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             //Execute on the main thread.
 
             if (restTimer != null && binding?.flRestView?.visibility == View.VISIBLE) {
-                setRestProgressBar() // resume the rest timer.
+
+                // If the rest Timer is active and rest view is visible.
+                val remainingTime = (restTimerDuration * 10000) - (restProgress * 1000)
+
+                // Calculate remaining time for the rest timer
+                if (remainingTime > 1000) {
+                    setRestProgressBar() // resume the rest timer if it is more than 1 second.
+                } else {
+                    //if remaining time <= 1, then skip rest and proceed to exercise.
+                    currentExercisePosition++
+                    exerciseList!![currentExercisePosition].setIsSelected(true)
+
+                    exerciseAdapter!!.notifyDataSetChanged()
+                    setupExerciseView()
+                }
+
+
             } else if (exerciseTimer != null && binding?.flExerciseView?.visibility == View.VISIBLE) {
-                setExerciseProgressBar() // Resume exercise timer
+                // If exercise timer is active and exercise view is visible
+                val remainingTime = (exerciseTimerDuration * 30000) - (exerciseProgress * 1000)
+
+                // Calculate remaining time for exercise timer
+                if (remainingTime > 1000) {
+                    setExerciseProgressBar() // Resume exercise timer
+                } else {
+                    if (currentExercisePosition < exerciseList?.size!! - 1) {
+
+                        exerciseList!![currentExercisePosition].setIsSelected(false) // Mark current exercise as not selected
+                        exerciseList!![currentExercisePosition].setIsCompleted(true) // Mark current exercise as completed
+                        exerciseAdapter!!.notifyDataSetChanged() // Notify adapter of data change
+                        setupRestView() // Setup rest view
+                    } else {
+                        // If all exercises are completed, finish the activity
+                        finish()
+                        val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                }
             }
         }
     }
@@ -134,7 +174,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
 
 
         binding?.flRestView?.visibility = View.VISIBLE
@@ -286,6 +325,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         binding = null
+
+        //Clear the flag when the activity is destroyed.
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
     override fun onInit(status: Int) {

@@ -13,4 +13,10 @@
     <string name="metric_units">METRIC UNITS</string>
     <string name="your_bmi">your BMI</string>
     <string name="calculate">CALCULATE</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="currentexerciseimg">CurrentExerciseImg</string>
+    <string name="_10">10</string>
+    <string name="_30">30</string>
+    <string name="get_ready_for">GET READY FOR</string>
+    <string name="upcoming_exercise">UPCOMING EXERCISE:</string>
 </resources>

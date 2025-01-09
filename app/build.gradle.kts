@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
     namespace = "com.example.a7minutesworkout"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.a7minutesworkout"
@@ -34,7 +35,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -49,4 +50,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(kotlin("script-runtime"))
+
+    //Room dependencies
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    kapt(libs.androidx.lifecycle.compiler)
 }

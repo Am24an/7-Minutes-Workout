@@ -3,7 +3,6 @@ package com.example.a7minutesworkout
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a7minutesworkout.databinding.ActivityBmiBinding
 import java.math.BigDecimal
@@ -19,13 +18,11 @@ class BMIActivity : AppCompatActivity() {
 
     // A variable to hold a value to make a selected view visible.
     private var currentVisibleView: String = METRIC_UNITS_VIEW
-
     private var binding: ActivityBmiBinding? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityBmiBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
@@ -34,11 +31,12 @@ class BMIActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "CALCULATE BMI"
         }
+
         binding?.toolbarBMI?.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        makeVisibleUsUnitsView()
+        makeVisibleMetricUnitsView() // call this to show the metric units by default
 
         binding?.rgUnits?.setOnCheckedChangeListener { _, checkedId: Int ->
             if (checkedId == R.id.rbMetricUnits) {

@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorForegroundInverse"
     android:fitsSystemWindows="true"
     tools:context=".BMIActivity">
 
@@ -13,7 +12,8 @@
         android:id="@+id/toolbarBMI"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/white" />
+        android:background="@color/white"
+        />
 
     <RadioGroup
         android:id="@+id/rgUnits"
@@ -62,7 +62,7 @@
         android:layout_below="@id/rgUnits"
         android:layout_margin="10dp"
         app:boxStrokeColor="@color/colorAccent1"
-        app:hintTextColor="@color/lightGrey">
+        app:hintTextColor="@color/colorAccent1">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMetricUnitWeight"
@@ -102,7 +102,7 @@
         android:layout_below="@id/rgUnits"
         android:layout_margin="10dp"
         app:boxStrokeColor="@color/colorAccent1"
-        app:hintTextColor="@color/lightGrey">
+        app:hintTextColor="@color/colorAccent1">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etUsMetricUnitWeight"
