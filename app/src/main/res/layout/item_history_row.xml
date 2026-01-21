@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_history_item_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#EBEBEB"
     android:orientation="horizontal"
     android:padding="15dp">
@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#212121"
-        android:textStyle="bold"
         android:textSize="16sp"
-        tools:text="1"/>
+        android:textStyle="bold"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/tvItem"
@@ -26,6 +26,6 @@
         android:gravity="center"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="DATE"/>
+        tools:text="DATE" />
 
 </LinearLayout>

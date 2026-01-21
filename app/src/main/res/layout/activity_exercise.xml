@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ExerciseActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarExercise"
         android:layout_width="match_parent"
@@ -30,7 +29,6 @@
         app:layout_constraintBottom_toTopOf="@+id/flRestView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <FrameLayout
         android:id="@+id/flRestView"
@@ -108,11 +106,11 @@
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:contentDescription="@string/currentexerciseimg"
         android:padding="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_jumping_jacks"
         android:visibility="invisible"
-        android:contentDescription="@string/currentexerciseimg"
         app:layout_constraintBottom_toTopOf="@+id/tvExerciseName"
         app:layout_constraintTop_toBottomOf="@+id/toolbarExercise" />
 

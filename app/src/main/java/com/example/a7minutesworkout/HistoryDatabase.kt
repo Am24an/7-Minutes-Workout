@@ -6,16 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [HistoryEntity::class], version = 1)
-abstract class HistoryDatabase: RoomDatabase() {
+abstract class HistoryDatabase : RoomDatabase() {
 
 
     abstract fun historyDao(): HistoryDao
+
     companion object {
 
         @Volatile
         private var INSTANCE: HistoryDatabase? = null
 
-        fun getInstance(context: Context):HistoryDatabase {
+        fun getInstance(context: Context): HistoryDatabase {
 
             synchronized(this) {
                 var instance = INSTANCE

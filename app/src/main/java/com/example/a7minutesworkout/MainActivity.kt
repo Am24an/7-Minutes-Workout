@@ -24,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.flBMI?.setOnClickListener {
-            val intent = Intent(this,BMIActivity::class.java )
+            val intent = Intent(this, BMIActivity::class.java)
             startActivity(intent)
         }
 
         binding?.flHistory?.setOnClickListener {
-            val intent = Intent(this,HistoryActivity::class.java)
+            val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
     }

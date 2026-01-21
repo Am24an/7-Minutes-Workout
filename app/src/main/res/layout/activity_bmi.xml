@@ -12,8 +12,7 @@
         android:id="@+id/toolbarBMI"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/white"
-        />
+        android:background="@color/white" />
 
     <RadioGroup
         android:id="@+id/rgUnits"
@@ -120,7 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_below="@id/rgUnits"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUsUnitHeightFeet"
@@ -153,9 +152,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tilMetricUnitWeight"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/view"
         android:layout_margin="10dp"
         android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/view"
         android:visibility="gone"
         app:boxStrokeColor="@color/colorAccent1"
         app:hintTextColor="@color/colorAccent1"

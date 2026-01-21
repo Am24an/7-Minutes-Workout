@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a7minutesworkout.databinding.ItemHistoryRowBinding
 
-class HistoryAdapter(private val items:ArrayList<String>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val items: ArrayList<String>) :
+    RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     class ViewHolder(binding: ItemHistoryRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -16,9 +17,11 @@ class HistoryAdapter(private val items:ArrayList<String>) : RecyclerView.Adapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemHistoryRowBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        ))
+        return ViewHolder(
+            ItemHistoryRowBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -26,16 +29,18 @@ class HistoryAdapter(private val items:ArrayList<String>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val date: String = items.get(position)
+        val date: String = items.get(position)
         holder.tvPosition.text = (position + 1).toString()
         holder.tvItem.text = date
 
-        if(position % 2 == 0){
+        if (position % 2 == 0) {
             holder.llHistoryItemMain.setBackgroundColor(
-                Color.parseColor("#EBEBEB"))
-        }else{
+                Color.parseColor("#EBEBEB")
+            )
+        } else {
             holder.llHistoryItemMain.setBackgroundColor(
-                Color.parseColor("#FFFFFF"))
+                Color.parseColor("#FFFFFF")
+            )
         }
     }
 }

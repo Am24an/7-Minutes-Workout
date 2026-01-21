@@ -17,8 +17,11 @@ class ExerciseStatusAdapter(private val items: ArrayList<ExerciseModel>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemExerciseStatusBinding.inflate(
-            LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(
+            ItemExerciseStatusBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -29,23 +32,31 @@ class ExerciseStatusAdapter(private val items: ArrayList<ExerciseModel>) :
         val model: ExerciseModel = items[position]
         holder.tvItem.text = model.getId().toString()
 
-        when{
-            model.getIsSelected() ->{
+        when {
+            model.getIsSelected() -> {
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context,
-                        R.drawable.item_circular_thin_color_accent_border)
+                    ContextCompat.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.item_circular_thin_color_accent_border
+                    )
                 holder.tvItem.setTextColor(Color.parseColor("#212121"))
             }
-            model.getIsCompleted() ->{
+
+            model.getIsCompleted() -> {
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context,
-                        R.drawable.item_circular_color_accent_border)
+                    ContextCompat.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.item_circular_color_accent_border
+                    )
                 holder.tvItem.setTextColor(Color.parseColor("#FFFFFF"))
             }
+
             else -> {
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context,
-                        R.drawable.item_circular_color_gray_bg)
+                    ContextCompat.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.item_circular_color_gray_bg
+                    )
                 holder.tvItem.setTextColor(Color.parseColor("#212121"))
             }
         }

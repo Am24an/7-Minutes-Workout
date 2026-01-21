@@ -6,9 +6,8 @@
     android:layout_height="25dp"
     android:layout_margin="1dp"
     android:background="@drawable/item_circular_color_gray_bg"
-    android:padding="3dp"
     android:gravity="center"
-    android:textStyle="bold"
+    android:padding="3dp"
     android:textColor="#212121"
-    tools:text="1"
-    />
+    android:textStyle="bold"
+    tools:text="1" />

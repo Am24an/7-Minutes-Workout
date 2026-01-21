@@ -35,21 +35,21 @@ class HistoryActivity : AppCompatActivity() {
     private fun getAllCompleteDates(historyDao: HistoryDao) {
         lifecycleScope.launch {
             historyDao.fetchAllDates().collect { allCompletedDatesList ->
-                if(allCompletedDatesList.isNotEmpty()){
+                if (allCompletedDatesList.isNotEmpty()) {
                     binding?.tvHistory?.visibility = View.VISIBLE
                     binding?.rvHistory?.visibility = View.VISIBLE
                     binding?.tvNoData?.visibility = View.INVISIBLE
 
                     binding?.rvHistory?.layoutManager = LinearLayoutManager(this@HistoryActivity)
                     val dates = ArrayList<String>()
-                    for(date in allCompletedDatesList){
+                    for (date in allCompletedDatesList) {
                         dates.add(date.date)
                     }
 
                     val historyAdapter = HistoryAdapter(dates)
                     binding?.rvHistory?.adapter = historyAdapter
 
-                }else{
+                } else {
                     binding?.tvHistory?.visibility = View.GONE
                     binding?.rvHistory?.visibility = View.GONE
                     binding?.tvNoData?.visibility = View.VISIBLE

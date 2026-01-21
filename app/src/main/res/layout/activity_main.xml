@@ -69,8 +69,8 @@
         android:textColor="@color/colorAccent1"
         android:textSize="@dimen/default_btn_text_size"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/flBMI"
         app:layout_constraintEnd_toEndOf="@id/flBMI"
+        app:layout_constraintStart_toStartOf="@id/flBMI"
         app:layout_constraintTop_toBottomOf="@id/flBMI" />
 
 

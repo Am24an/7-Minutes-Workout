@@ -140,11 +140,12 @@ class BMIActivity : AppCompatActivity() {
     }
 
 
-    private fun calculateUnits(){
-        if(currentVisibleView == METRIC_UNITS_VIEW ){
+    private fun calculateUnits() {
+        if (currentVisibleView == METRIC_UNITS_VIEW) {
 
             if (validateMetricUnits()) {
-                val heightValue: Float = binding?.etMetricUnitHeight?.text.toString().toFloat() / 100
+                val heightValue: Float =
+                    binding?.etMetricUnitHeight?.text.toString().toFloat() / 100
                 val weightValue: Float = binding?.etMetricUnitWeight?.text.toString().toFloat()
 
                 val bmi = weightValue / (heightValue * heightValue)
@@ -156,8 +157,8 @@ class BMIActivity : AppCompatActivity() {
                     "Please enter valid values.", Toast.LENGTH_SHORT
                 ).show()
             }
-        }else{
-            if (validateUsUnits()){
+        } else {
+            if (validateUsUnits()) {
                 val usUnitHeightValueFeet: String =
                     binding?.etUsUnitHeightFeet?.text.toString()
                 val usUnitHeightValueInch: String =
@@ -175,7 +176,7 @@ class BMIActivity : AppCompatActivity() {
 
                 displayBMIResult(bmi)
 
-            }else{
+            } else {
                 Toast.makeText(
                     this@BMIActivity,
                     "Please enter valid values.", Toast.LENGTH_SHORT

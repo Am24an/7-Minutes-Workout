@@ -1,3 +1,5 @@
+import org.gradle.api.JavaVersion.VERSION_1_8
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -28,8 +30,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = VERSION_1_8
+        targetCompatibility = VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -51,6 +53,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(kotlin("script-runtime"))
+    implementation(libs.kotlin.stdlib.jdk8)
 
     //Room dependencies
     implementation(libs.androidx.room.runtime)
@@ -60,5 +63,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    kapt(libs.androidx.lifecycle.compiler)
+    kapt(libs.lifecycle.compiler)
 }
